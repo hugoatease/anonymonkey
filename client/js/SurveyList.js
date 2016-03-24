@@ -1,6 +1,7 @@
 var React = require('react');
 var request = require('superagent');
 var Link = require('react-router').Link;
+var SurveyShare = require('./SurveyShare');
 
 var SurveyList = React.createClass({
     getInitialState: function() {
@@ -30,6 +31,7 @@ var SurveyList = React.createClass({
                                     <h3>{survey.name}</h3>
                                     <p>{survey.description}</p>
                                     <Link to={'/survey/' + survey.id + '/edit'} className="btn btn-default">Edit survey</Link>
+                                    <SurveyShare survey_id={survey.id} />
                                 </div>
                             </div>
                         );

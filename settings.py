@@ -19,3 +19,7 @@ DXZqdpmIfKgQmzLAzmLfICrPZF7gQlZk/lIpipdH1jjbgIgHXUq6RyKb6w1qhtw9
 7QIDAQAB
 -----END PUBLIC KEY-----'''
 OPENID_ISSUER_CLAIM = 'https://www.wapitisen.fr'
+TOKEN_ISSUER = 'http://www.anonymonkey.com/'
+MAIL_SENDER = 'contact@anonymonkey.com'
+MAILGUN_DOMAIN = 'sandboxb0aefc369dbb4e0f995e02c5d5b83310.mailgun.org'
+MAILGUN_KEY = 'key-1708e9472fe78761013b20882a835a2c'

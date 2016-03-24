@@ -29,6 +29,7 @@ class Survey(db.Document):
     name = db.StringField(required=True)
     description = db.StringField()
     questions = db.EmbeddedDocumentListField(Question)
+    recipients = db.ListField(db.StringField())
 
 
 class AnswerItem(db.EmbeddedDocument):
@@ -39,3 +40,7 @@ class AnswerItem(db.EmbeddedDocument):
 class Answer(db.Document):
     survey = db.ReferenceField(Survey, required=True)
     answers = db.EmbeddedDocumentListField(AnswerItem)
+
+
+class TokenBlacklist(db.Document):
+    token = db.StringField(required=True)
