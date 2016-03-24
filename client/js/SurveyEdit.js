@@ -3,8 +3,23 @@ var Survey = require('react-surveys');
 var request = require('superagent');
 
 var SurveyEdit = React.createClass({
+    getInitialState: function() {
+        return {
+            survey: null
+        };
+    },
+
+    componentDidMount: function() {
+        if (this.props.params.survey_id) {
+            request.get('/api/surveys/' + this.props.params.survey_id)
+                .end(function(err, res) {
+                    if (err) return;
+                    this.setState({survey: res.body});
+                }.bind(this));
+        }
+    },
+
     edit: function(survey) {
-        console.log(survey);
         request.post('/api/surveys')
             .send(survey)
             .end(function(err, res) {
@@ -14,7 +29,7 @@ var SurveyEdit = React.createClass({
     },
 
     render: function() {
-        return <Survey editing={true} surveyCallback={this.edit} />;
+        return <Survey editing={true} survey={this.state.survey} surveyCallback={this.edit} />;
     }
 });
 

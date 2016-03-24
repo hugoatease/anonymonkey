@@ -3,7 +3,7 @@ from .fields import survey_fields
 from anonymonkey.schemas import Survey, Question, QuestionOption
 
 
-class SurveyResource(Resource):
+class SurveyListResource(Resource):
     @marshal_with(survey_fields)
     def post(self):
         parser = reqparse.RequestParser()
@@ -35,4 +35,11 @@ class SurveyResource(Resource):
         )
 
         survey.save()
+        return survey
+
+
+class SurveyResource(Resource):
+    @marshal_with(survey_fields)
+    def get(self, survey_id):
+        survey = Survey.objects.with_id(survey_id)
         return survey

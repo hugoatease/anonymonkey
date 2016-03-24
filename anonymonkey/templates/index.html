@@ -4,6 +4,6 @@
 {% endblock %}
 {% block javascript %}
 <script type="text/javascript">
-    anonymonkey(document.getElementById('app'));
+    anonymonkey(document.getElementById('app'), JSON.parse('{{ params|safe }}'));
 </script>
 {% endblock %}

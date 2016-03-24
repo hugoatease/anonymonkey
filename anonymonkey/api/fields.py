@@ -1,5 +1,13 @@
 from flask_restful import fields
 
+user_fields = {
+    'sub': fields.String,
+    'email': fields.String,
+    'admin': fields.Boolean,
+    'first_name': fields.String,
+    'last_name': fields.String
+}
+
 question_option = {
     'id': fields.String,
     'name': fields.String
