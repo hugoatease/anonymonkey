@@ -1,9 +1,25 @@
-from flask_restful import Resource, reqparse, marshal_with
+from flask import request
+from flask_restful import Resource, reqparse, marshal_with, abort
+from flask_login import current_user
 from .fields import survey_fields
-from anonymonkey.schemas import Survey, Question, QuestionOption
+from anonymonkey.schemas import Survey, Question, QuestionOption, User
 
 
 class SurveyListResource(Resource):
+    @marshal_with(survey_fields)
+    def get(self):
+        surveys = Survey.objects
+        if not current_user.is_admin():
+            if 'author' not in request.args:
+                return abort(401)
+            if request.args['author'] != current_user.get_id():
+                return abort(401)
+
+        if 'author' in request.args:
+            surveys = surveys.filter(author=User.objects.with_id(request.args['author']))
+
+        return list(surveys.all())
+
     @marshal_with(survey_fields)
     def post(self):
         parser = reqparse.RequestParser()
@@ -31,7 +47,8 @@ class SurveyListResource(Resource):
         survey = Survey(
             name=args['name'],
             description=args['description'],
-            questions=questions
+            questions=questions,
+            author=current_user.user
         )
 
         survey.save()

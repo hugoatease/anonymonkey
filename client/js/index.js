@@ -4,10 +4,13 @@ var Router = require('react-router').Router;
 var Route = require('react-router').Route;
 var IndexRoute = require('react-router').IndexRoute;
 var browserHistory = require('react-router').browserHistory;
+var merge = require('lodash/merge');
+var clone = require('lodash/clone');
 
 var Home = require('./Home');
 var SurveyEdit = require('./SurveyEdit');
 var SurveyAnswer = require('./SurveyAnswer');
+var SurveyList = require('./SurveyList');
 
 var App = React.createClass({
     render: function() {
@@ -30,9 +33,12 @@ var App = React.createClass({
     }
 });
 
-function componentFactory(component, props) {
+function componentFactory(component, userProps) {
     return React.createClass({
         render: function() {
+            var props = {};
+            merge(props, this.props);
+            merge(props, userProps);
             return React.createElement(component, props);
         }
     });
@@ -46,6 +52,7 @@ module.exports = function(container, props) {
                 <Route path="/create" component={componentFactory(SurveyEdit, props)} />
                 <Route path="/survey/:survey_id" component={componentFactory(SurveyAnswer, props)} />
                 <Route path="/survey/:survey_id/edit" component={componentFactory(SurveyEdit, props)} />
+                <Route path="/surveys" component={componentFactory(SurveyList, props)} />
             </Route>
         </Router>
     ), container);

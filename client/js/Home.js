@@ -21,6 +21,8 @@ var Home = React.createClass({
                     <div className="panel-body">
                         <p>Create, share or manage your surveys here.</p>
                         <Link to="/create" className="btn btn-primary">Create survey</Link>
+                        &nbsp;&nbsp;
+                        <Link to="/surveys" className="btn btn-primary">Manage surveys</Link>
                     </div>
                 </div>
             );

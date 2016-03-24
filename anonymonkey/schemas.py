@@ -25,6 +25,7 @@ class Question(db.EmbeddedDocument):
 
 
 class Survey(db.Document):
+    author = db.ReferenceField(User, required=True)
     name = db.StringField(required=True)
     description = db.StringField()
     questions = db.EmbeddedDocumentListField(Question)
