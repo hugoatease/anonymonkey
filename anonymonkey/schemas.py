@@ -29,3 +29,13 @@ class Survey(db.Document):
     name = db.StringField(required=True)
     description = db.StringField()
     questions = db.EmbeddedDocumentListField(Question)
+
+
+class AnswerItem(db.EmbeddedDocument):
+    question = db.StringField(required=True)
+    answer = db.StringField()
+
+
+class Answer(db.Document):
+    survey = db.ReferenceField(Survey, required=True)
+    answers = db.EmbeddedDocumentListField(AnswerItem)

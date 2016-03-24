@@ -27,3 +27,13 @@ survey_fields = {
     'description': fields.String,
     'questions': fields.List(fields.Nested(survey_question))
 }
+
+answer_item_fields = {
+    'question': fields.String,
+    'answer': fields.String
+}
+
+answer_fields = {
+    'survey': fields.Nested(survey_fields),
+    'answers': fields.List(fields.Nested(answer_item_fields))
+}

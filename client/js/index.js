@@ -6,6 +6,7 @@ var IndexRoute = require('react-router').IndexRoute;
 var browserHistory = require('react-router').browserHistory;
 var merge = require('lodash/merge');
 var clone = require('lodash/clone');
+var Link = require('react-router').Link;
 
 var Home = require('./Home');
 var SurveyEdit = require('./SurveyEdit');
@@ -33,6 +34,18 @@ var App = React.createClass({
     }
 });
 
+var NotFound = React.createClass({
+   render: function() {
+       return (
+           <div>
+               <h3>Route not found</h3><hr />
+               <p>Please check the requested URL or <Link to="/">go back to homepage</Link>.</p>
+               <img src="/static/404.gif" />
+           </div>
+       )
+   }
+});
+
 function componentFactory(component, userProps) {
     return React.createClass({
         render: function() {
@@ -53,6 +66,7 @@ module.exports = function(container, props) {
                 <Route path="/survey/:survey_id" component={componentFactory(SurveyAnswer, props)} />
                 <Route path="/survey/:survey_id/edit" component={componentFactory(SurveyEdit, props)} />
                 <Route path="/surveys" component={componentFactory(SurveyList, props)} />
+                <Route path="*" component={NotFound} />
             </Route>
         </Router>
     ), container);

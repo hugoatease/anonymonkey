@@ -18,9 +18,20 @@ var SurveyAnswer = React.createClass({
             }.bind(this));
     },
 
+    onAnswers: function(answers) {
+        request.post('/api/answers')
+            .send({
+                survey: answers.id,
+                answers: answers.answers
+            })
+            .end(function(err, res) {
+                if (err) return;
+            }.bind(this));
+    },
+
     render: function() {
         if (this.state.survey) {
-            return <Survey editing={false} survey={this.state.survey} />;
+            return <Survey editing={false} survey={this.state.survey} answersCallback={this.onAnswers} />;
         }
         else {
             return <div>Loading survey...</div>;
