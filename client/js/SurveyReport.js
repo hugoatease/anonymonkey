@@ -54,7 +54,7 @@ var SurveyReport = React.createClass({
                                 });
                             }
                             return (
-                                <div className="col-md-6 panel panel-default">
+                                <div className="col-md-4 panel panel-default">
                                     <div className="panel-body">
                                         <h3>{item.question.name}</h3>
                                         <p>{item.question.description}</p>

@@ -10,6 +10,8 @@
   "license": "Apache-2.0",
   "dependencies": {
     "bootstrap": "^3.3.6",
+    "chart.js": "^1.0.2",
+    "randomcolor": "^0.4.3",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-router": "^2.0.1",
