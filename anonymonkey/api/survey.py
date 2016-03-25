@@ -104,6 +104,10 @@ class SurveyShareResource(Resource):
 class SurveyAnswerReport(Resource):
     @login_required
     def get(self, survey_id):
+        survey = Survey.objects.with_id(survey_id)
+        if not current_user.is_admin() and survey.author.id != current_user.get_id():
+            return abort(401)
+
         answers = list(Answer.objects.aggregate(
             {'$match': {'survey': ObjectId(survey_id)}},
             {'$unwind': '$answers'},

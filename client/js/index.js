@@ -12,6 +12,7 @@ var Home = require('./Home');
 var SurveyEdit = require('./SurveyEdit');
 var SurveyAnswer = require('./SurveyAnswer');
 var SurveyList = require('./SurveyList');
+var SurveyReport = require('./SurveyReport');
 
 var App = React.createClass({
     render: function() {
@@ -65,6 +66,7 @@ module.exports = function(container, props) {
                 <Route path="/create" component={componentFactory(SurveyEdit, props)} />
                 <Route path="/survey/:survey_id" component={componentFactory(SurveyAnswer, props)} />
                 <Route path="/survey/:survey_id/edit" component={componentFactory(SurveyEdit, props)} />
+                <Route path="/survey/:survey_id/report" component={componentFactory(SurveyReport, props)} />
                 <Route path="/surveys" component={componentFactory(SurveyList, props)} />
                 <Route path="*" component={NotFound} />
             </Route>
