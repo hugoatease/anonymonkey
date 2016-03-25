@@ -2,10 +2,11 @@ from flask import request, current_app, render_template, url_for, jsonify
 from flask_restful import Resource, reqparse, marshal_with, abort
 from flask_login import current_user, login_required
 from .fields import survey_fields
-from anonymonkey.schemas import Survey, Question, QuestionOption, User
+from anonymonkey.schemas import Survey, Question, QuestionOption, User, Answer
 import jwt
 import arrow
 import requests
+from bson import ObjectId
 
 
 class SurveyListResource(Resource):
@@ -98,3 +99,15 @@ class SurveyShareResource(Resource):
         print req.content
 
         return jsonify({'error': False, 'email': args['email']})
+
+
+class SurveyAnswerReport(Resource):
+    @login_required
+    def get(self, survey_id):
+        answers = list(Answer.objects.aggregate(
+            {'$match': {'survey': ObjectId(survey_id)}},
+            {'$unwind': '$answers'},
+            {'$group': {'_id': '$answers.question', 'answers': {'$push': '$answers.answer'}}}
+        ))
+
+        return answers

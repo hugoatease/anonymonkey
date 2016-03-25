@@ -34,7 +34,7 @@ class Survey(db.Document):
 
 class AnswerItem(db.EmbeddedDocument):
     question = db.StringField(required=True)
-    answer = db.StringField()
+    answer = db.DynamicField()
 
 
 class Answer(db.Document):
