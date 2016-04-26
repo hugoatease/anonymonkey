@@ -5,6 +5,7 @@ db = MongoEngine()
 
 class User(db.Document):
     sub = db.StringField(required=True, primary_key=True)
+    id_token = db.StringField(required=True)
     email = db.StringField(required=True)
     admin = db.BooleanField(required=True, default=False)
     first_name = db.StringField(required=True)
@@ -29,7 +30,6 @@ class Survey(db.Document):
     name = db.StringField(required=True)
     description = db.StringField()
     questions = db.EmbeddedDocumentListField(Question)
-    recipients = db.ListField(db.StringField())
 
 
 class AnswerItem(db.EmbeddedDocument):

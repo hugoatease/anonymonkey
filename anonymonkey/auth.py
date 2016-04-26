@@ -21,7 +21,8 @@ class UserHandler(UserMixin):
             'email': self.user.email,
             'admin': self.user.admin,
             'first_name': self.user.first_name,
-            'last_name': self.user.last_name
+            'last_name': self.user.last_name,
+            'id_token': self.user.id_token
         }
 
 

@@ -67,40 +67,6 @@ class SurveyResource(Resource):
         return survey
 
 
-class SurveyShareResource(Resource):
-    @login_required
-    def post(self, survey_id):
-        survey = Survey.objects.with_id(survey_id)
-        if survey.author.id != current_user.get_id():
-            return abort(401)
-
-        parser = reqparse.RequestParser()
-        parser.add_argument('email', type=unicode, required=True)
-        args = parser.parse_args()
-
-        survey.update(push__recipients=args['email'])
-
-        token = jwt.encode({
-            'iss': current_app.config['TOKEN_ISSUER'],
-            'iat': arrow.utcnow().datetime,
-            'survey_id': str(survey.id)
-        }, current_app.config['SECRET_KEY'])
-
-        url = url_for('index_all', path='/survey/' + str(survey.id), _external=True) + '?token=' + token
-        html = render_template('email.html', survey_name=survey.name, url=url)
-
-        req = requests.post('https://api.mailgun.net/v3/' + current_app.config['MAILGUN_DOMAIN'] + '/messages', data={
-            'from': current_app.config['MAIL_SENDER'],
-            'to': args['email'],
-            'subject': survey.name + ' survey invitation',
-            'html': html,
-            }, auth=('api', current_app.config['MAILGUN_KEY']))
-
-        print req.content
-
-        return jsonify({'error': False, 'email': args['email']})
-
-
 class SurveyAnswerReport(Resource):
     @login_required
     def get(self, survey_id):

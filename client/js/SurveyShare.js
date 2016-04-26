@@ -7,7 +7,8 @@ var SurveyShare = React.createClass({
         ev.preventDefault();
         var email = ReactDOM.findDOMNode(this.refs.email).value;
 
-        request.post('/api/surveys/' + this.props.survey_id + '/share')
+        request.post('http://localhost:5000/api/surveys/' + this.props.survey_id + '/share')
+            .set('Authorization', 'JWT ' + this.props.id_token)
             .send({email: email})
             .end(function(err, res) {
                 if (err) return;

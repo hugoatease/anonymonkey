@@ -84,10 +84,17 @@ def login_return():
     info = requests.get(app.config['OPENID_USERINFO_ENDPOINT'], headers={'Authorization': 'Bearer ' + tokens['access_token']}).json()
 
     if User.objects.with_id(sub) is None:
-        user = User(sub=sub, email=info['email'], first_name=info['given_name'], last_name=info['family_name'])
+        user = User(
+            sub=sub,
+            email=info['email'],
+            first_name=info['given_name'],
+            last_name=info['family_name'],
+            id_token=tokens['id_token']
+        )
         user.save()
     else:
         user = User.objects.with_id(sub)
+        user.id_token = tokens['id_token']
         user.email = info['email']
         user.first_name = info['given_name']
         user.last_name = info['family_name']

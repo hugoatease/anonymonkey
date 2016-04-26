@@ -24,8 +24,11 @@ var SurveyEdit = React.createClass({
             .send(survey)
             .end(function(err, res) {
                 if (err) return;
-                console.log(res.body);
-            });
+                request.post('http://localhost:5000/api/surveys')
+                    .set('Authorization', 'JWT ' + this.props.user.id_token)
+                    .send({survey_id: res.body.id})
+                    .end();
+            }.bind(this));
     },
 
     render: function() {
