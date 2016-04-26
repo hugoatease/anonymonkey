@@ -13,17 +13,17 @@ class AnswerListResource(Resource):
         parser.add_argument('answers', type=list, location='json')
         args = parser.parse_args()
 
-        if TokenBlacklist.objects(token=args['token']).first() is not None:
+        token = jwt.decode(
+            args['token'],
+            current_app.config['AUTHORITY_KEY'],
+            issuer=current_app.config['TOKEN_ISSUER'],
+            algorithms='RS256'
+        )
+
+        survey = Survey.objects.with_id(token['survey_id'])
+
+        if TokenBlacklist.objects(token=token['token']).first() is not None:
             return abort(401)
-
-        survey_id = jwt.decode(args['token'],
-                               current_app.config['SECRET_KEY'],
-                               issuer=current_app.config['TOKEN_ISSUER']
-                               )['survey_id']
-
-        print survey_id
-
-        survey = Survey.objects.with_id(survey_id)
 
         def create_item(answer):
             return AnswerItem(
@@ -40,7 +40,7 @@ class AnswerListResource(Resource):
 
         answer.save()
 
-        blacklist = TokenBlacklist(token=args['token'])
+        blacklist = TokenBlacklist(token=token['token'])
         blacklist.save()
 
         return answer
