@@ -1,5 +1,5 @@
 from flask import request, current_app, render_template, url_for, jsonify
-from flask_restful import Resource, reqparse, marshal_with, abort
+from flask_restful import Resource, reqparse, marshal_with, abort, marshal
 from flask_login import current_user, login_required
 from .fields import survey_fields
 from anonymonkey.schemas import Survey, Question, QuestionOption, User, Answer
@@ -25,7 +25,6 @@ class SurveyListResource(Resource):
         return list(surveys.all())
 
     @login_required
-    @marshal_with(survey_fields)
     def post(self):
         parser = reqparse.RequestParser()
         parser.add_argument('name', type=unicode, required=True)
@@ -57,9 +56,18 @@ class SurveyListResource(Resource):
             questions=questions,
             author=current_user.user
         )
-
         survey.save()
-        return survey
+
+        register_token = jwt.encode({
+            'iss': current_app.config['BASE_URL'],
+            'survey_id': str(survey.id),
+            'survey_name': survey.name
+        }, current_app.config['PRIVATE_KEY'], algorithm='RS256')
+
+        return {
+            'survey': marshal(survey, survey_fields),
+            'register_token': register_token
+        }
 
 
 class SurveyResource(Resource):

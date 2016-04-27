@@ -1,4 +1,4 @@
-from flask import Flask, render_template, session, redirect, request, g
+from flask import Flask, render_template, session, redirect, request, g, jsonify
 from anonymonkey.api import api
 from .schemas import db
 import requests
@@ -114,3 +114,14 @@ def login_return():
         return redirect('/')
     else:
         return redirect(session['login_next'])
+
+
+@app.route('/.well-known/anonymonkey')
+def discovery_endpoint():
+    return jsonify({
+        'key': {
+            'pem': {
+                'public': app.config['PUBLIC_KEY']
+            }
+        }
+    })

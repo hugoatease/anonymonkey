@@ -30,7 +30,7 @@ var SurveyEdit = React.createClass({
                 if (err) return;
                 request.post(this.state.authority_url + '/api/surveys')
                     .set('Authorization', 'JWT ' + this.props.user.id_token)
-                    .send({survey_id: res.body.id})
+                    .send({register_token: res.body.register_token})
                     .end();
             }.bind(this));
     },

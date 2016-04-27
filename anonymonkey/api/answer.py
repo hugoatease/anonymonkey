@@ -9,7 +9,7 @@ import requests
 def fetch_authority_key(survey):
     cached = g.redis.get('anonymonkey.authorities.public_key.' + survey.authority_url)
     if cached is None:
-        discovery = requests.get(survey.authority_url + '/.well-known/anonymonkey').json()
+        discovery = requests.get(survey.authority_url + '/.well-known/anonymonkey-authority').json()
         g.redis.set('anonymonkey.authorities.public_key.' + survey.authority_url, discovery['token_key']['pem']['public'])
         g.redis.expire('anonymonkey.authorities.public_key.' + survey.authority_url, 1800)
         return discovery['token_key']['pem']['public']
@@ -31,7 +31,7 @@ class AnswerListResource(Resource):
         token = jwt.decode(
             args['token'],
             fetch_authority_key(survey),
-            issuer=current_app.config['TOKEN_ISSUER'],
+            audience=current_app.config['BASE_URL'],
             algorithms='RS256'
         )
 
