@@ -6,3 +6,4 @@ flask-mongoengine==0.7.5
 Flask-RESTful==0.3.5
 requests==2.9.1
 PyJWT==1.4.0
+redis==2.10.5
