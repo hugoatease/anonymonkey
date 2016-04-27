@@ -33,7 +33,7 @@ var SurveyList = React.createClass({
                                     <Link to={'/survey/' + survey.id + '/edit'} className="btn btn-default">Edit survey</Link>
                                     &nbsp;&nbsp;
                                     <Link to={'/survey/' + survey.id + '/report'} className="btn btn-default">Answers report</Link>
-                                    <SurveyShare survey_id={survey.id} id_token={this.props.user.id_token} base_url={survey.base_url} />
+                                    <SurveyShare survey_id={survey.id} id_token={this.props.user.id_token} authority_url={survey.authority_url} />
                                 </div>
                             </div>
                         );
