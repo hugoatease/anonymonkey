@@ -25,6 +25,7 @@ survey_fields = {
     'id': fields.String,
     'name': fields.String,
     'description': fields.String,
+    'authority_url': fields.String,
     'questions': fields.List(fields.Nested(survey_question))
 }
 
