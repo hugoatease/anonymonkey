@@ -35,7 +35,7 @@ class AnswerListResource(Resource):
             algorithms='RS256'
         )
 
-        if TokenBlacklist.objects(token=token['token']).first() is not None:
+        if TokenBlacklist.objects(survey=survey, token=token['token']).first() is not None:
             return abort(401)
 
         def create_item(answer):
@@ -53,7 +53,7 @@ class AnswerListResource(Resource):
 
         answer.save()
 
-        blacklist = TokenBlacklist(token=token['token'])
+        blacklist = TokenBlacklist(survey=survey, token=token['token'])
         blacklist.save()
 
         return answer

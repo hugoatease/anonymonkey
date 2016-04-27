@@ -44,4 +44,5 @@ class Answer(db.Document):
 
 
 class TokenBlacklist(db.Document):
+    survey = db.ReferenceField(Survey, required=True)
     token = db.StringField(required=True)
