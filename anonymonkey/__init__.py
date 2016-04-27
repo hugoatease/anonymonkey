@@ -1,4 +1,4 @@
-from flask import Flask, render_template, session, redirect, request
+from flask import Flask, render_template, session, redirect, request, g
 from anonymonkey.api import api
 from .schemas import db
 import requests
@@ -11,6 +11,7 @@ from .auth import login_manager
 from .schemas import User
 from .auth import UserHandler
 import json
+from redis import Redis
 
 app = Flask(__name__)
 app.config.from_object('settings')
@@ -24,6 +25,13 @@ app.config['MONGODB_SETTINGS'] = {
 login_manager.init_app(app)
 db.init_app(app)
 api.init_app(app)
+
+
+redis = Redis(host=app.config['REDIS_HOST'], port=app.config['REDIS_PORT'])
+
+@app.before_request
+def before_request():
+    g.redis = redis
 
 
 @app.route('/')

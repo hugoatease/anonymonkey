@@ -29,6 +29,7 @@ class SurveyListResource(Resource):
     def post(self):
         parser = reqparse.RequestParser()
         parser.add_argument('name', type=unicode, required=True)
+        parser.add_argument('authority_url', type=unicode, required=True)
         parser.add_argument('description', type=unicode)
         parser.add_argument('questions', type=list, location='json')
         args = parser.parse_args()
@@ -52,6 +53,7 @@ class SurveyListResource(Resource):
         survey = Survey(
             name=args['name'],
             description=args['description'],
+            authority_url=args['authority_url'],
             questions=questions,
             author=current_user.user
         )

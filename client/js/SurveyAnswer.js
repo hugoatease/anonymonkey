@@ -21,6 +21,7 @@ var SurveyAnswer = React.createClass({
     onAnswers: function(answers) {
         request.post('/api/answers')
             .send({
+                survey_id: this.props.params.survey_id,
                 token: this.props.location.query.token,
                 answers: answers.answers
             })
