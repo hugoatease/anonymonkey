@@ -3,6 +3,8 @@ var Survey = require('react-surveys');
 var request = require('superagent');
 var clone = require('lodash/clone');
 var validUrl = require('valid-url');
+var browserHistory = require('react-router').browserHistory;
+var swal = require('sweetalert');
 
 var SurveyEdit = React.createClass({
     getInitialState: function() {
@@ -29,11 +31,20 @@ var SurveyEdit = React.createClass({
         request.post('/api/surveys')
             .send(survey)
             .end(function(err, res) {
-                if (err) return;
+                if (err) {
+                    swal('Survey creation error', 'Unable to submit survey to the server', 'error');
+                    return;
+                }
                 request.post(this.state.authority_url + '/api/surveys')
                     .set('Authorization', 'JWT ' + this.props.user.id_token)
                     .send({register_token: res.body.register_token})
-                    .end();
+                    .end(function(err, res) {
+                        if (err) {
+                            swal('Survey creation error', 'Unable to register survey on authority', 'error');
+                            return;
+                        }
+                        browserHistory.push('/surveys');
+                    }.bind(this));
             }.bind(this));
     },
 

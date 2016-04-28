@@ -21,7 +21,7 @@ var App = React.createClass({
                 <nav className="navbar navbar-default">
                   <div className="container-fluid">
                     <div className="navbar-header">
-                      <a class="navbar-brand" href="#">
+                      <a class="navbar-brand" href="/">
                         <img alt="Anonymonkey" src="/static/logo.png" height="50"/>
                       </a>
                     </div>

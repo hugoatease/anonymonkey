@@ -1,6 +1,7 @@
 var React = require('react');
 var request = require('superagent');
 var ReactDOM = require('react-dom');
+var swal = require('sweetalert');
 
 var SurveyShare = React.createClass({
     share: function(ev) {
@@ -11,8 +12,12 @@ var SurveyShare = React.createClass({
             .set('Authorization', 'JWT ' + this.props.id_token)
             .send({email: email})
             .end(function(err, res) {
-                if (err) return;
-            })
+                if (err) {
+                    swal('Survey sharing', 'Unable to share survey to ' + email, 'error');
+                    return;
+                }
+                swal('Survey sharing', 'Survey has been shared to ' + email, 'success');
+            });
     },
 
     render: function() {

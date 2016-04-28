@@ -22,10 +22,10 @@ var SurveyList = React.createClass({
     render: function() {
         return (
             <div className="row">
-                <div className="col-md-6">
-                    <h3>My surveys</h3><hr />
-                    {this.state.surveys.map(function(survey) {
-                        return (
+                <h3>My surveys</h3><hr />
+                {this.state.surveys.map(function(survey) {
+                    return (
+                        <div className="col-md-6">
                             <div className="panel panel-default">
                                 <div className="panel-body">
                                     <h3>{survey.name}</h3>
@@ -36,9 +36,9 @@ var SurveyList = React.createClass({
                                     <SurveyShare survey_id={survey.id} id_token={this.props.user.id_token} authority_url={survey.authority_url} />
                                 </div>
                             </div>
-                        );
-                    }.bind(this))}
-                </div>
+                        </div>
+                    );
+                }.bind(this))}
             </div>
         );
     }
