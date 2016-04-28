@@ -1,6 +1,7 @@
 var React = require('react');
 var Survey = require('react-surveys');
 var request = require('superagent');
+var swal = require('sweetalert');
 
 var SurveyAnswer = React.createClass({
     getInitialState: function() {
@@ -12,8 +13,10 @@ var SurveyAnswer = React.createClass({
     componentDidMount: function() {
         request.get('/api/surveys/' + this.props.params.survey_id)
             .end(function(err, res) {
-                if (err) return;
-                console.log(res.body);
+                if (err)  {
+                    swal('Survey error', 'Unable to fetch survey', 'error');
+                    return;
+                }
                 this.setState({survey: res.body});
             }.bind(this));
     },
@@ -26,7 +29,11 @@ var SurveyAnswer = React.createClass({
                 answers: answers.answers
             })
             .end(function(err, res) {
-                if (err) return;
+                if (err) {
+                    swal('Survey error', 'Unable to submit your answers. Maybe you already answered the survey.', 'error');
+                    return;
+                }
+                swal('Survey submitted', 'Your answers have been submitted. Thank you !', 'success');
             }.bind(this));
     },
 
