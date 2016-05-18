@@ -9,6 +9,9 @@ can exchange a mail-transmitted JWT token with another token containing no
 identity information. JWT are used to make a public-key based assertion
 of the grant of the survey authority to answer the survey.
 
+Survey edition uses the [react-surveys](https://github.com/hugoatease/react-surveys)
+library UI and survey format.
+
 Features
 ---------
 - Survey creation, with a reactive edition UI
@@ -86,8 +89,6 @@ providing values for the variables below.
 | `BASE_URL` | JWT issuer used in survey registration tokens |
 | `PRIVATE_KEY` | Private RSA key used to sign JWTs |
 | `PUBLIC_KEY` | Public RSA key used to sign JWTs |
-| `MAILGUN_DOMAIN`                  | Mailgun registered domain name |
-| `MAILGUN_KEY`                     | Mailgun sender API key |
 
 ### Manual setup
 Python and Gunicorn are used to host the backend service. Node.js and Gulp are
