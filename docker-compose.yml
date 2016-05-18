@@ -1,0 +1,32 @@
+version: '2'
+services:
+  mongodb:
+    image: mongo:3.2
+  redis:
+    image: redis:latest
+  anonymonkey:
+    image: hugoatease/anonymonkey
+    depends_on:
+      - mongodb
+      - redis
+    links:
+      - mongodb
+      - redis
+    ports:
+      - "8000:8000"
+    volumes:
+      - "./docker/settings_main.py:/usr/src/app/settings.py"
+  anonymonkey-authority:
+    image: hugoatease/anonymonkey-authority
+    depends_on:
+      - mongodb
+      - redis
+      - anonymonkey
+    links:
+      - mongodb
+      - redis
+      - anonymonkey
+    ports:
+      - "8080:8000"
+    volumes:
+      - "./docker/settings_authority.py:/usr/src/app/settings.py"

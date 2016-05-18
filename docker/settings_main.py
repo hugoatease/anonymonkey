@@ -1,7 +1,7 @@
 MONGODB_DB = 'anonymonkey'
-MONGODB_HOST = 'localhost'
+MONGODB_HOST = 'mongodb'
 MONGODB_PORT = 27017
-REDIS_HOST = 'localhost'
+REDIS_HOST = 'redis'
 REDIS_PORT = 6379
 DEBUG = True
 SECRET_KEY = 'WWRXEbMy78CIoYXjGaYIDS6P3RYB7GHWiknTSX8LEg8='
@@ -21,7 +21,7 @@ DXZqdpmIfKgQmzLAzmLfICrPZF7gQlZk/lIpipdH1jjbgIgHXUq6RyKb6w1qhtw9
 7QIDAQAB
 -----END PUBLIC KEY-----'''
 OPENID_ISSUER_CLAIM = 'https://www.atrium-app.com/'
-BASE_URL = 'http://localhost:8000'
+BASE_URL = 'http://anonymonkey:8000'
 PRIVATE_KEY = '''-----BEGIN RSA PRIVATE KEY-----
 MIIEowIBAAKCAQEAqPKXfq61onY+a7QNAKxzSe/O8Sh3hDCaIUUz6yozB3XLepBl
 fAru4+hAMUWOfpjqJuiPbsbrCGEhRhyJsTLsRGxs4u1zPM9Bmhas+qQVNAmvIh0j
