@@ -16,7 +16,7 @@ Documentation
 --------------
 Survey service API documentation is available at [docs.anonymonkey.apiary.io](http://docs.anonymonkey.apiary.io/).
 
-Survey authority API documentation can be found at [docs.anonymonkey-authority.apiary.io](http://docs.anonymonkey-authority.apiary.io/).
+Survey authority API documentation can be found at [docs.anonymonkeyauthority.apiary.io](http://docs.anonymonkeyauthority.apiary.io/).
 
 Features
 ---------
