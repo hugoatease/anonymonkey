@@ -12,6 +12,10 @@ of the grant of the survey authority to answer the survey.
 Survey edition uses the [react-surveys](https://github.com/hugoatease/react-surveys)
 library UI and survey format.
 
+Documentation
+==============
+Survey service API documentation is available at [docs.anonymonkey.apiary.io](http://docs.anonymonkey.apiary.io/)
+
 Features
 ---------
 - Survey creation, with a reactive edition UI
