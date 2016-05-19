@@ -13,7 +13,7 @@ Survey edition uses the [react-surveys](https://github.com/hugoatease/react-surv
 library UI and survey format.
 
 Documentation
-==============
+--------------
 Survey service API documentation is available at [docs.anonymonkey.apiary.io](http://docs.anonymonkey.apiary.io/)
 
 Features
